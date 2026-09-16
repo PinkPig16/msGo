@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package payment.v1;
+
+option go_package = "github.com/pinkpig16/shared/proto/payment/v1;paymentv1";
+
+// PaymentService обрабатывает оплату заказов
+service PaymentService {
+  // PayOrder обрабатывает оплату заказа
+  rpc PayOrder(PayOrderRequest) returns (PayOrderResponse);
+}
+
+// Способ оплаты
+enum PaymentMethod {
+  //PAYMENT_METHOD_UNSPECIFIED
+  PAYMENT_METHOD_UNSPECIFIED = 0;
+  //PAYMENT_METHOD_CARD
+  PAYMENT_METHOD_CARD = 1;
+  //PAYMENT_METHOD_SBP
+  PAYMENT_METHOD_SBP = 2;
+  //PAYMENT_METHOD_CREDIT_CARD
+  PAYMENT_METHOD_CREDIT_CARD = 3;
+  //PAYMENT_METHOD_INVESTOR_MONEY
+  PAYMENT_METHOD_INVESTOR_MONEY = 4;
+}
+
+// Запрос на оплату заказа
+message PayOrderRequest {
+  // UUID заказа
+  string order_uuid = 1;
+  //PaymentMethod
+  PaymentMethod payment_method = 2;
+}
+
+// PayOrder Response
+message PayOrderResponse {
+  // transactionId
+  string transaction_uuid = 1;
+}
